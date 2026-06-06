@@ -108,6 +108,15 @@ async function run() {
       res.send(result)
     })
 
+    app.patch("/status-change/:id", async (req, res) => {
+      const { id } = req.params;
+      const updateData = req.body;
+      const result = await petCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateData }
+      )
+      res.send(result)
+    })
 
 
     // await client.db("admin").command({ ping: 1 });
