@@ -154,6 +154,27 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/adoption-details/:id', async (req, res) => {
+      const { id } = req.params
+      const result = await adoptCollection.findOne({ _id: new ObjectId(id) })
+      res.send(result)
+    })
+
+    app.patch("/adoption-request/:id", async (req, res) => {
+      const id = req.params.id;
+      const updateStatus = req.body;
+      const result = await adoptCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateStatus },
+      );
+      res.send(result);
+    });
+
+    app.delete("/request-delete/:requestId", async (req, res) => {
+      const { requestId } = req.params;
+      const result = await adoptCollection.deleteOne({ _id: new ObjectId(requestId) })
+      res.send(result)
+    })
 
 
 
