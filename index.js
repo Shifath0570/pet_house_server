@@ -142,6 +142,19 @@ async function run() {
     })
 
 
+    app.get('/adoption/:petId', async (req, res) => {
+      const { petId } = req.params
+      const result = await adoptCollection.find({ petId }).toArray();
+      res.send(result)
+    })
+
+    app.get('/my-requests/:email', async (req, res) => {
+      const { email } = req.params;
+      const result = await adoptCollection.find({ userEmail: email }).toArray();
+      res.send(result)
+    })
+
+
 
 
     // await client.db("admin").command({ ping: 1 });
