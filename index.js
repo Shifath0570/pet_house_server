@@ -63,6 +63,35 @@ async function run() {
     })
 
 
+    app.get("/pets", async (req, res) => {
+      const { search = "", species = "", sort = "" } = req.query;
+
+      const query = {};
+
+      if (search) {
+        query.petName = {
+          $regex: search,
+          $options: "i",
+        };
+      }
+
+      if (species) {
+        query.species = {
+          $in: species.split(","),
+        };
+      }
+
+      const sortOption =
+        sort === "asc"
+          ? { adoptioFee: 1 }
+          : sort === "desc"
+            ? { adoptioFee: -1 }
+            : {};
+
+      const result = await petCollection.find(query).sort(sortOption).toArray();
+      res.send(result);
+    });
+
 
 
 
