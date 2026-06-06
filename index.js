@@ -56,7 +56,12 @@ async function run() {
       res.send(result);
     })
 
-    
+    app.get('/pet/:id', verifyToken, async (req, res) => {
+      const { id } = req.params
+      const result = await petCollection.findOne({ _id: new ObjectId(id) })
+      res.send(result)
+    })
+
 
 
 
