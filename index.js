@@ -100,6 +100,13 @@ async function run() {
     })
 
 
+    app.post('/pet', async (req, res) => {
+      const petData = req.body;
+      console.log(petData)
+      const result = await petCollection.insertOne(petData)
+
+      res.send(result)
+    })
 
 
 
