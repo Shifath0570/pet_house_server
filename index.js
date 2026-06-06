@@ -135,6 +135,12 @@ async function run() {
       res.send(result)
     })
 
+     app.post("/adoption", async (req, res) => {
+      const adoptionData = req.body;
+      const result = await adoptCollection.insertOne(adoptionData);
+      res.send(result)
+    })
+
 
 
 
