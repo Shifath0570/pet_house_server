@@ -92,6 +92,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/pets/:userId", async (req, res) => {
+      const { userId } = req.params;
+      console.log("userId", userId)
+      const result = await petCollection.find({ userId: userId }).toArray();
+      res.send(result);
+    })
 
 
 
